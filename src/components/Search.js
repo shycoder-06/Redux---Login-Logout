@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { API_KEY } from "../secrets";
 import { movies } from "../actions";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllMovies } from "../store/movieSlice";
 import {
 	Form,
 	FormGroup,
@@ -12,6 +13,7 @@ import {
 } from "react-bootstrap";
 
 const Search = (props) => {
+	const dispatch = useDispatch();
 	const [query, setQuery] = useState("");
 	const onSearch = () => {
 		console.log("Movie: ", query);
@@ -24,6 +26,7 @@ const Search = (props) => {
 				props.movies(jsonObj.results);
 			});
 	};
+	const movies = useSelector(selectAllMovies);
 	return (
 		<div>
 			<Form inline>
@@ -43,4 +46,4 @@ const Search = (props) => {
 	);
 };
 
-export default useSelector(null, movies)(Search);
+export default Search;

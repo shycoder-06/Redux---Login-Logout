@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { API_KEY } from "../secrets";
 import {
 	Form,
 	FormGroup,
@@ -12,6 +13,14 @@ const Search = () => {
 	const [query, setQuery] = useState("");
 	const onSearch = () => {
 		console.log("Movie: ", query);
+		let url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`;
+		fetch(url, {
+			method: "GET",
+		})
+			.then((response) => response.json())
+			.then((jsonObj) => {
+				console.log(jsonObj);
+			});
 	};
 	return (
 		<div>

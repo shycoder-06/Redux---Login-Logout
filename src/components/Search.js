@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { API_KEY } from "../secrets";
+import { movies } from "../actions";
+import { useSelector } from "react-redux";
 import {
 	Form,
 	FormGroup,
@@ -9,7 +11,7 @@ import {
 	Button,
 } from "react-bootstrap";
 
-const Search = () => {
+const Search = (props) => {
 	const [query, setQuery] = useState("");
 	const onSearch = () => {
 		console.log("Movie: ", query);
@@ -19,7 +21,7 @@ const Search = () => {
 		})
 			.then((response) => response.json())
 			.then((jsonObj) => {
-				console.log(jsonObj);
+				props.movies(jsonObj.results);
 			});
 	};
 	return (
@@ -41,4 +43,4 @@ const Search = () => {
 	);
 };
 
-export default Search;
+export default useSelector(null, movies)(Search);

@@ -1,9 +1,4 @@
-import React from "react";
-import { useState, useSelector } from "react";
-import { API_KEY } from "../secrets";
-import { useDispatch } from "react-redux";
-import { fetchMoviesSuccess } from "../store/movieSlice";
-import MovieResults from "./MovieResults";
+import React, { useState } from "react";
 import {
 	Form,
 	FormGroup,
@@ -11,6 +6,10 @@ import {
 	FormLabel,
 	Button,
 } from "react-bootstrap";
+import { API_KEY } from "../secrets";
+import { useDispatch } from "react-redux";
+import { fetchMoviesSuccess } from "../store/movieSlice";
+import MovieResults from "./MovieResults";
 
 const Search = (props) => {
 	const dispatch = useDispatch();

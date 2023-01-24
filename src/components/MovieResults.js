@@ -8,20 +8,16 @@ import MovieItem from "./MovieItem";
 
 const MovieResults = (props) => {
 	const { query } = props;
-	const [searchResults, setSearchResults] = useState([]);
+	const moviesList = useSelector(selectAllMovies);
+	const [searchResults, setSearchResults] = useState(moviesList);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const moviesList = useSelector(selectAllMovies);
-
 	useEffect(() => {
-		console.log("test reached useeffect");
 		const fetchData = async () => {
 			try {
 				const url = `https://api.themoviedb.org/3/search/movie?api_key=56e5571f3e8fff41c0519c7d767b519a&language=en-US&page=1&include_adult=false&query=${query}`;
 				const response = await fetch(url);
 				const json = await response.json();
-				console.log(json.results);
-
 				setSearchResults(json.results);
 			} catch (error) {
 				console.log("error", error);
@@ -32,7 +28,6 @@ const MovieResults = (props) => {
 		fetchData();
 	}, [query]);
 	const handleSearch = (value) => {
-		console.log(searchResults);
 		setSearchResults(
 			searchResults.filter((item) =>
 				item.title.toLowerCase().includes(value.toLowerCase())

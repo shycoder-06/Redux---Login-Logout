@@ -11,7 +11,7 @@ const App = () => {
 				</div>
 			</div>
 			<div className="row">
-				<MovieResults query="Your query string here" />
+				<MovieResults />
 			</div>
 		</div>
 	);

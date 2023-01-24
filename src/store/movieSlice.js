@@ -16,6 +16,4 @@ export const { fetchMoviesSuccess } = movieSlice.actions;
 
 export const selectAllMovies = (state) => state.movies;
 
-export const { moviesAdded } = movieSlice.actions;
-
 export default movieSlice.reducer;

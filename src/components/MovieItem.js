@@ -11,7 +11,7 @@ const MovieItem = ({ movie }) => {
 				<div className="caption">
 					<h3>{movie.name}</h3>
 					<p>{movie.overview}</p>
-					<p>Realease Date - {movie.release_date}</p>
+					<p>Release Date - {movie.release_date}</p>
 					<p>Ratings = {movie.vote_average}</p>
 					<p>
 						<a href="#" className="btn btn-primary" role="button">

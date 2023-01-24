@@ -1,8 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useSelector } from "react";
 import { API_KEY } from "../secrets";
 import { useDispatch } from "react-redux";
-// import { selectAllMovies } from "../store/movieSlice";
 import { fetchMoviesSuccess } from "../store/movieSlice";
 import MovieResults from "./MovieResults";
 import {
@@ -16,6 +15,7 @@ import {
 const Search = (props) => {
 	const dispatch = useDispatch();
 	const [query, setQuery] = useState("");
+	const { handleSearch } = props;
 	const onSearch = () => {
 		console.log("Movie: ", query);
 		let url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`;
@@ -25,6 +25,7 @@ const Search = (props) => {
 			.then((response) => response.json())
 			.then((jsonObj) => {
 				dispatch(fetchMoviesSuccess(jsonObj.results));
+				handleSearch(query);
 				<MovieResults url={url} />;
 			});
 	};

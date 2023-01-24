@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { API_KEY } from "../secrets";
-import { movies } from "../actions";
-import { useSelector, useDispatch } from "react-redux";
-import { selectAllMovies } from "../store/movieSlice";
+import { useDispatch } from "react-redux";
+// import { selectAllMovies } from "../store/movieSlice";
+import { fetchMoviesSuccess } from "../store/movieSlice";
+import MovieResults from "./MovieResults";
 import {
 	Form,
 	FormGroup,
@@ -23,10 +24,12 @@ const Search = (props) => {
 		})
 			.then((response) => response.json())
 			.then((jsonObj) => {
-				props.movies(jsonObj.results);
+				dispatch(fetchMoviesSuccess(jsonObj.results));
+				<MovieResults url={url} />;
 			});
 	};
-	const movies = useSelector(selectAllMovies);
+
+	// const movies = useSelector(selectAllMovies);
 	return (
 		<div>
 			<Form inline>

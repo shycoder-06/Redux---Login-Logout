@@ -1,33 +1,33 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
-	{ id: "0", name: "movie 1" },
-	{ id: "1", name: "movie 2" },
-	{ id: "2", name: "movie 3" },
-];
+const initialState = [];
 
 const movieSlice = createSlice({
 	name: "movies",
 	initialState,
 	reducers: {
-		moviesReducer: {
-			reducer(state, action) {
-				state.push(action.payload);
-			},
-			prepare(name) {
-				return {
-					payload: {
-						id: nanoid(),
-						name,
-					},
-				};
+		reducers: {
+			fetchMoviesSuccess: (state, action) => {
+				state.push(...action.payload);
 			},
 		},
 	},
 });
-
+export const { fetchMoviesSuccess } = movieSlice.actions;
+export const fetchMovies = () => async (dispatch) => {
+	try {
+		// eslint-disable-next-line no-undef
+		const response = await axios.get(
+			"https://api.themoviedb.org/3/movie/top_rated?api_key=<API_KEY>&language=en-US&page=1"
+		);
+		const movies = response.data.results;
+		dispatch(fetchMoviesSuccess(movies));
+	} catch (err) {
+		console.log(err);
+	}
+};
 export const selectAllMovies = (state) => state.movies;
 
-export const movieActions = movieSlice.actions;
+export const { moviesAdded } = movieSlice.actions;
 
-export default movieSlice;
+export default movieSlice.reducer;

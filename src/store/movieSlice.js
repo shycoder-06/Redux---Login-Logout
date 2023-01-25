@@ -8,7 +8,7 @@ const movieSlice = createSlice({
 	reducers: {
 		fetchMoviesSuccess: (state, action) => {
 			console.log("reached fetchMoviesSuccess");
-			state.push(...action.payload);
+			return [...state, ...action.payload];
 		},
 	},
 });

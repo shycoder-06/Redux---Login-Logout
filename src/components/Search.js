@@ -9,6 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 import { movies } from "../actions";
 import { API_KEY } from "../secrets";
+import { fetchMoviesSuccess } from "../store/movieSlice";
 
 const Search = () => {
 	const [query, setQuery] = useState("");
@@ -20,7 +21,7 @@ const Search = () => {
 		let response = await fetch(url, { method: "GET" });
 		let jsonObj = await response.json();
 		console.log(jsonObj.results);
-		dispatch(movies(jsonObj.results));
+		dispatch(fetchMoviesSuccess(jsonObj.results));
 	};
 
 	return (

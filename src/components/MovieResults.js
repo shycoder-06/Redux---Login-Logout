@@ -2,46 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Search from "./Search";
 import MovieItem from "./MovieItem";
+import { selectAllMovies } from "../store/movieSlice";
 
-const MovieResults = (props) => {
-	const { query } = props;
-	const filteredMovies = useSelector((state) =>
-		state.movies.filter((item) =>
-			item.title.toLowerCase().includes(query.toLowerCase())
-		)
-	);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState(null);
-
+const MovieResults = () => {
+	const movies = useSelector(selectAllMovies);
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				setIsLoading(true);
-				// Make API call
-			} catch (err) {
-				setError(err);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchData();
-	}, [query]);
-
-	if (isLoading) {
-		return <p>Loading...</p>;
-	}
-
-	if (error) {
-		return <p>Error: {error.message}</p>;
-	}
-
+		console.log(movies);
+	}, [movies]);
 	return (
-		<div>
-			<h1>Movie results will go here</h1>
-			<Search />
-			{filteredMovies.map((item) => {
-				return <MovieItem movie={item} key={item.id} />;
-			})}
+		<div className="col-md-12">
+			{movies.map((movie, index) => (
+				<MovieItem key={index} movie={movie} />
+			))}
 		</div>
 	);
 };
